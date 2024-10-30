@@ -1,0 +1,34 @@
+.icon-button {
+    border: none;
+    cursor: pointer;
+    img {
+        max-height: 2rem;
+        object-fit: cover;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    width: 50%;
+}
+
+.row {
+    button {
+        font-size: 1.5rem;
+    }
+    font-size: 2rem;
+}
+
+td {
+    text-align: center;
+}
+
+thead {
+    font-size: 2.5rem;
+    font-weight: bold;
+}

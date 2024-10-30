@@ -1,0 +1,77 @@
+@use './../../../../public/styles/colors.scss';
+
+main {
+    display: flex;
+}
+
+#form-container {
+    width: 40%;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: colors.$main-color;
+        margin: 0 0 2rem;
+    }
+
+    .loginRegisterContainer {
+        position: fixed;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        >* {
+            margin: 0 0 2rem 0;
+        }
+
+        input[type=text], input[type=password], input[type=email] {
+            width: 30rem;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid colors.$underline-color;
+            font-size: 1.1rem;
+        }
+
+        #name {
+            display: flex;
+            width: 30rem;
+            justify-content: space-between;
+            input {
+                width: 14rem;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            button {
+                font-size: 1.1rem;
+                background-color: colors.$secondary-color;
+                color: white;
+                border-radius: 20px;
+                width: 48%;
+                border: none;
+                height: 2.3rem;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            button:hover {
+                filter: brightness(0.8);
+            }
+        }
+    }
+}
+
+#background {
+    height: 100svh;
+    width: 60%;
+    background-color: colors.$main-color;
+}

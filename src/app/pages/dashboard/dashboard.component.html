@@ -1,0 +1,41 @@
+<main class="flex-column-center">
+    <table>
+        <thead>
+            <td>ID</td>
+            <td>Disponibilidad</td>
+            <td>Ingreso</td>
+            <td>Acciones</td>
+        </thead>
+        <tbody>
+            @for (slot of parkingService.slots; track $index) {
+                <tr>
+                    <td class="row"> {{ slot.id }} </td>
+                    <td class="row">
+                        @if (slot.isAvailable) {
+                            <button class="available" (click)="addParking(slot.id)">
+                                Disponible
+                            </button>
+                        } @else {
+                            <button class="unavailable" (click)="closeParking(slot)">
+                                No disponible
+                            </button>
+                        }
+                    </td>
+                    <td class="row">{{ slot.description }}</td>
+                    <td class="row"> 
+                        @if(!slot.parking?.plate){
+                            @if(slot.isAvailable){
+                                <button class="icon-button" (click)="disableSlot(slot)"><img src="icons/disable.png" alt="Deshabilitar cochera"></button>
+                            } @else {
+                                <button class="icon-button" (click)="enableSlot(slot)"><img src="icons/enable.png" alt="Habilitar cochera"></button>
+                            }
+                            <button class="icon-button" (click)="deleteSlot(slot.id)"><img src="icons/delete.png" alt="Eliminar cochera"></button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button (click)="addSlot()">Agregar cochera</button>
+</main>

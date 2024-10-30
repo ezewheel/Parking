@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/.angular": true,
+        "**/.editorconfig": true,
+        "**/tsconfig.json": true,
+        "**/tsconfig.app.json": true,
+        "**/tsconfig.spec.json": true,
+        "**/angular.json": true,
+        "**/package.json": true,
+        "**/package-lock.json": true,
+        "**/README.md": true
+    }
+}
