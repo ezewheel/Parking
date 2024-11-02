@@ -1,3 +1,5 @@
+@use './../../../../public/styles/colors.scss';
+
 .icon-button {
     border: none;
     cursor: pointer;
@@ -11,6 +13,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 4rem 0;
 }
 
 table {
@@ -18,17 +21,67 @@ table {
 }
 
 .row {
+    font-size: 2rem;
     button {
         font-size: 1.5rem;
     }
-    font-size: 2rem;
 }
 
 td {
     text-align: center;
+    height: 5rem;
+    max-width: 15rem;
+    overflow: hidden;
 }
 
 thead {
     font-size: 2.5rem;
     font-weight: bold;
+}
+
+.availability {
+    button {
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        height: 3rem;
+        width: 10rem;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        filter: brightness(0.8);
+        transition: 0.2s;
+    }
+}
+
+.available {
+    background-color: green;
+}
+
+.unavailable {
+    background-color: red;
+}
+
+.occupied {
+    background-color: colors.$main-color;
+}
+
+#add-slot-button {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 10rem;
+    height: 3rem;
+    cursor: pointer;
+    background-color: colors.$main-color;
+    font-size: 1.2rem;
+    transition: 0.2s;
+}
+
+#add-slot-button:hover {
+    filter: brightness(0.8);
+    transition: 0.2s;
 }

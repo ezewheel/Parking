@@ -3,12 +3,11 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { authService } from '../../services/auth.service';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   animations: [
     trigger(
       'loginRegister', 
@@ -17,7 +16,7 @@ import { CommonModule } from '@angular/common';
           ':enter', 
           [
             style({ opacity: 0 }),
-            animate('1s', 
+            animate('1.5s', 
                     style({ opacity: 1 })),
           ]
         ),
@@ -45,15 +44,20 @@ export class LoginRegisterComponent {
   unmatchedPasswords = false;
   uncompletedForm = false;
   
-  toggleIsLogin() {
-    this.isLogin = !this.isLogin;
+  reset() {
     this.errorLogin = false;
     this.alreadyExists = false;
     this.unmatchedPasswords = false;
     this.uncompletedForm = false;
   }
+
+  toggleIsLogin() {
+    this.isLogin = !this.isLogin;
+    this.reset();
+  }
   
   async login(loginForm: NgForm){
+    this.reset();
     const {username, password} = loginForm.value;
     if (!username || !password) {
       this.uncompletedForm = true;
@@ -66,8 +70,9 @@ export class LoginRegisterComponent {
   }
 
   async register(registerForm: NgForm){
-    const {username, name, surname, password, repeatPassword} = registerForm.value;
-    if (!username || !name || !surname || !password || !repeatPassword) {
+    this.reset();
+    const {username, firstname, surname, password, repeatPassword} = registerForm.value;
+    if (!username || !firstname || !surname || !password || !repeatPassword) {
       this.uncompletedForm = true;
       return;
     }
@@ -76,9 +81,9 @@ export class LoginRegisterComponent {
       this.unmatchedPasswords = true;
       return;
     }
-    const fullName = name + surname;
+    const name = firstname + surname;
 
-    const registerData = {username, fullName, password};
+    const registerData = {username, name, password};
     const res = await this.authService.register(registerData)
     if(res?.status === "ok") this.router.navigate(['/dashboard']);
     else this.alreadyExists = true;

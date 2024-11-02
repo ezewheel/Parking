@@ -16,8 +16,9 @@ export class DashboardComponent {
 
   addParking(slotId: number) {
     Swal.fire({
-      title: "Abrir cochera",
-      html: `<input type="text" id="plate" class="swal2-input" placeholder="Ingrese patente">`,
+      html: `
+        <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">Abrir cochera</h1>
+        <input type="text" id="plate" class="swal2-input" placeholder="Ingrese patente">`,
       showCancelButton: true,
       confirmButtonText: "Abrir",
       cancelButtonText: "Cancelar",
@@ -32,92 +33,133 @@ export class DashboardComponent {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const { plate } = result.value;
-        await this.parkingService.addParking(slotId, plate);
+        const res = await this.parkingService.addParking(slotId, plate);
+        if (!res) {
+          Swal.fire("", `
+            <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">Ocurrió un error al abrir la cochera</h1>
+            `, "success")
+         }
       }
     })
   }
 
-  async closeParking(slot: ISlot) {
+  closeParking(slot: ISlot) {
     Swal.fire({
       html: `
-      <div style="text-align: left;">
-        <h2 style="margin: 20px 0 10px; text-align: center;">¿Desea cobrar la cochera?</h2>
-      </div>`,
+        <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif; text-align: center;">¿Cobrar cochera?</h1>`,
       showCancelButton: true,
       confirmButtonText: "Cobrar",
       cancelButtonText: "Cancelar",
      }).then(async (result) => {
        if (result.isConfirmed) {
         const parking: IParking | undefined = await this.parkingService.closeParking(slot.parking?.plate);
-        Swal.fire({
-          html: `
-          <div style="text-align: left;">
-            <h2 style="margin: 20px 0 10px; text-align: center;">Monto a cobrar:</h2>
-          </div>
-          <div style="font-size: 1.5rem;">
-            $${parking?.fee}
-          </div>
-          `
-        })
+        if (parking) {
+          Swal.fire({
+            html: `
+              <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif; text-align: center;">Monto a cobrar:</h1>
+              <p style="font-size: 2rem;">$${parking?.fee}</p>
+            `
+          })
+        } else {
+          Swal.fire({
+            html: `
+              <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif; text-align: center;">Ocurrió un error al cobrar</h1>
+            `
+          })
+        }
        }
      });
   }
 
-  async disableSlot(slot: ISlot) {
-    if (slot.isAvailable) {
-      Swal.fire({
-        html: `
-        <div style="text-align: left;">
-          <h2 style="margin: 20px 0 10px; text-align: center;">¿Desabilitar cochera?</h2>
-        </div>`,
-        showCancelButton: true,
-        confirmButtonText: "Desabilitar",
-        confirmButtonColor: "#E94444",
-        cancelButtonText: "Cancelar",
-       }).then(async (result) => {
-         if (!result.isConfirmed) return;
-         await this.parkingService.changeAvailabilitySlot(slot);
-       })
-    }
+  disableSlot(slot: ISlot) {
+    Swal.fire({
+      html: `
+        <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif; text-align: center;">¿Desabilitar cochera?</h1>
+      `,
+      showCancelButton: true,
+      confirmButtonText: "Desabilitar",
+      confirmButtonColor: "#E94444",
+      cancelButtonText: "Cancelar",
+     }).then(async (result) => {
+       if (!result.isConfirmed) return;
+       const res = await this.parkingService.changeAvailabilitySlot(slot);
+       if (!res) {
+        Swal.fire("", `
+          <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">Ocurrió un error al desabilitar la cochera</h1>
+          `, "success")
+       }
+     })
   }
 
-  async enableSlot(slot: ISlot) {
-    if (!slot.isAvailable) {
-      Swal.fire({
-        html: `
-        <div style="text-align: left;">
-          <h2 style="margin: 20px 0 10px; text-align: center;">¿Habilitar cochera?</h2>
-        </div>`,
-        showCancelButton: true,
-        confirmButtonText: "Habilitar",
-        confirmButtonColor: "#00c05c",
-        cancelButtonText: "Cancelar",
-       }).then(async (result) => {
-         if (!result.isConfirmed) return;
-         await this.parkingService.changeAvailabilitySlot(slot);
-       })
-    }
+  enableSlot(slot: ISlot) {
+    Swal.fire({
+      html: `
+        <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif; text-align: center;">¿Habilitar cochera?</h1>
+      `,
+      showCancelButton: true,
+      confirmButtonText: "Habilitar",
+      confirmButtonColor: "#00c05c",
+      cancelButtonText: "Cancelar",
+     }).then(async (result) => {
+       if (!result.isConfirmed) return;
+       const res = await this.parkingService.changeAvailabilitySlot(slot);
+       if (!res) {
+        Swal.fire("", `
+          <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">Ocurrió un error al habilitar la cochera</h1>
+          `, "success")
+       }
+     })
   }
 
-  async deleteSlot(slotId: number) {
-
+  deleteSlot(slotId: number) {
+    Swal.fire({
+      html: `
+      <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">¿Eliminar cochera?</h1>
+      `,
+      showCancelButton: true,
+      confirmButtonText: "Eliminar",
+      confirmButtonColor: "#E94444",
+      cancelButtonText: "Cancelar",
+     }).then(async (result) => {
+       if (!result.isConfirmed) return;
+       const res = await this.parkingService.deleteSlot(slotId);
+       if (res) {
+        Swal.fire("", `
+          <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">Cochera eliminada</h1>
+          `, "success")
+       } else {
+        Swal.fire("", `
+          <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">Ocurrió un error al eliminar la cochera</h1>
+          `, "error")
+       };
+     })
   }
   
   addSlot(){
     Swal.fire({
       html:`
-      <div style="text-align: center;">
-        <h2 style="margin: 20px 0 10px;">Agregando una cochera</h2>
-        <p style="font-size: 1.5rem;">Introduzca una descripción para la cochera</>
-      </div>`,
-      input: "text",
+        <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">Agregando cochera</h1>
+        <input type="text" id="description" class="swal2-input" placeholder="Ingrese una descripción">`,
       showCancelButton: true,
       confirmButtonText: "Agregar",
       denyButtonText: "Cancelar",
+      preConfirm: () => {
+        const descriptionInput = document.getElementById("description") as HTMLInputElement
+        if (!descriptionInput || !descriptionInput.value) {
+          Swal.showValidationMessage("Por favor, ingrese una descripción")
+          return false;
+        }
+        return { description: descriptionInput.value };
+      }
     }).then(async (result) => {
       if (result.isConfirmed) {
-        this.parkingService.addSlot(result.value)
-        Swal.fire("Cochera agregada", "", "success");
+        const { description } = result.value
+        const res = await this.parkingService.addSlot(description);
+        if (!res) {
+          Swal.fire("", `
+            <h1 style="margin: 20px 0 10px; font-size: 2rem; font-family: 'Roboto', sans-serif;">Ocurrió un error al añadir una cochera</h1>
+            `, "success")
+         };
       }
     });
   }

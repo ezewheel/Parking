@@ -16,23 +16,33 @@ export class ParkingService {
   }
 
   slots: ISlot[] = [];
+  
+  async getSlots(){
+    const res = await fetch('http://localhost:5155/api/slots',{
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      },
+    })
+    
+    if(res.status !== 200) return;
+    const resJson: ISlot[] = await res.json();
+    this.slots = resJson;
+    return true;
+  }
 
   async addParking(slotId: number, plate: string) {
     const res = await fetch('http://localhost:5155/api/parking/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        authorization:'Bearer '+ localStorage.getItem("authToken")
+        authorization:'Bearer '+ localStorage.getItem("token")
       },
       body: JSON.stringify({ slotId, plate }),
     });
-    if(res.status !== 200) {
-      console.log("Error en abrir estacionamiento")
-    } else {
-      console.log("Creacion de estacionamiento exitoso")
-    };
 
+    if(res.status !== 200) return;
     await this.loadData();
+    return true;
   }
 
   async closeParking(plate: string | undefined) {
@@ -41,7 +51,7 @@ export class ParkingService {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        authorization:'Bearer '+ localStorage.getItem("authToken")
+        authorization:'Bearer '+ localStorage.getItem("token")
       },
       body: JSON.stringify(plate),
     });
@@ -53,31 +63,19 @@ export class ParkingService {
     return resJson;
   }
 
-  async getSlots(){
-    const res = await fetch('http://localhost:5155/api/slots',{
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem("authToken")
-      },
-    })
-    
-    if(res.status !== 200) return;
-    const resJson: ISlot[] = await res.json();
-    console.log(resJson);
-    this.slots = resJson;
-  }
-
   async addSlot(description: string){
     const res = await fetch('http://localhost:5155/api/slots',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem("authToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       body: JSON.stringify(description),
     })
     
     if(res.status !== 200) return;
     this.loadData();
+    return true;
   }
 
   async changeAvailabilitySlot(slot: ISlot) {
@@ -85,7 +83,7 @@ export class ParkingService {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem("authToken")
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       body: JSON.stringify({
         description: slot.description,
@@ -95,5 +93,20 @@ export class ParkingService {
 
     if(res.status !== 200) return;
     this.loadData();
+    return true;
+  }
+
+  async deleteSlot(slotId: number) {
+    const res = await fetch(`http://localhost:5155/api/slots/${slotId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      },
+    })
+    
+    if(res.status !== 200) return;
+    this.loadData();
+    return true;
   }
 }

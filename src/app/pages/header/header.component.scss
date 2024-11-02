@@ -1,0 +1,46 @@
+@use './../../../../public/styles/colors.scss';
+
+header {
+    height: 3rem;
+    display: flex;
+    background-color: colors.$main-color;
+    padding: 0 3rem;
+    align-items: center;
+    box-shadow: 5px 0px 25px 0px rgba(102,102,102,0.5);
+    * {
+        color: white;
+    }
+
+    table {
+        width: 100%;
+        td {
+            width: 33%;
+        }
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    .welcome {
+        font-style: italic;
+        text-align: center;
+    }
+
+    nav {
+        float: right;
+        a {
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        a:hover:not(.active) {
+            text-decoration: underline;
+        }
+        .active {
+            font-weight: bold;
+        }
+    }
+}

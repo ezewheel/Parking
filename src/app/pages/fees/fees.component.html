@@ -1,0 +1,19 @@
+<main>
+    <table>
+        <thead>
+            <td>Media hora<hr></td>
+            <td>Una hora<hr></td>
+            <td>Diario<hr></td>
+        </thead>
+        <tbody>            
+            @for (fee of feesService.fees; track $index) {
+                <td class="row">
+                    <div>
+                        <p>${{ fee.value }}</p>
+                        <button class="icon-button" (click)="editFee(fee.type)"><img src="icons/edit.png" alt="Deshabilitar cochera"></button>
+                    </div>
+                </td>
+            }            
+        </tbody>
+    </table>
+</main>

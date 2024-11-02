@@ -74,4 +74,15 @@ main {
     height: 100svh;
     width: 60%;
     background-color: colors.$main-color;
+    background-image: url(./../../../../public/background.png);
+    background-position: center;
+}
+
+.alert {
+    margin: auto;
+    position: absolute;
+    font-size: large;
+    font-weight: bold;
+    color: red;
+    text-align: center;
 }

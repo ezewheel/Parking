@@ -11,11 +11,11 @@ export interface ILoginRes {
 
 export interface IRegister {
     username: string;
-    fullName: string;
+    name: string;
     password: string;
 }
 
 export interface IDecodedToken {
-    name: string;
-    role: string;
+    given_name: string;
+    exp: string;
 }

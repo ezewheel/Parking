@@ -1,0 +1,41 @@
+@use './../../../../public/styles/colors.scss';
+
+.icon-button {
+    border: none;
+    cursor: pointer;
+    img {
+        max-height: 2rem;
+        object-fit: cover;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4rem 0;
+}
+
+table {
+    width: 50%;
+}
+
+.row {
+    font-size: 2rem;
+    vertical-align: middle;
+}
+
+td {
+    width: 33%;
+    text-align: center;
+    height: 3rem;
+}
+
+thead {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.bg {
+    background-color: rgba(colors.$main-color, 0.5);
+}

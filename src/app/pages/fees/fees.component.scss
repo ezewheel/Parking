@@ -1,0 +1,43 @@
+@use './../../../../public/styles/colors.scss';
+
+.icon-button {
+    border: none;
+    cursor: pointer;
+    img {
+        max-height: 2rem;
+        object-fit: cover;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4rem 0;
+}
+
+table {
+    width: 50%;
+}
+
+.row {
+    font-size: 2rem;
+    div {
+        display: flex;
+        justify-content: center;
+        * {
+            height: 2rem;
+        }
+    }
+}
+
+td {
+    width: 33%;
+    text-align: center;
+    height: 5rem;
+}
+
+thead {
+    font-size: 2.5rem;
+    font-weight: bold;
+}

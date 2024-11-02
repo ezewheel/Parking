@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../../interfaces/user';
 import { IDecodedToken, ILogin, ILoginRes, IRegister } from '../../interfaces/loginRegister';
 
 
@@ -7,12 +6,6 @@ import { IDecodedToken, ILogin, ILoginRes, IRegister } from '../../interfaces/lo
   providedIn: 'root'
 })
 export class authService {
-
-  constructor() { }
-
-  user: IUser | undefined;
-
-
   decodeToken(token: string){
     const decodedJwtData = window.atob(token.split('.')[1]);
     return JSON.parse(decodedJwtData);
@@ -33,13 +26,10 @@ export class authService {
     if(!resJson.token) return;
 
     const decodedToken: IDecodedToken = this.decodeToken(resJson.token);
-
-    this.user = {
-      name: decodedToken.name,
-      token: resJson.token
-    }
     
-    localStorage.setItem("authToken", resJson.token);
+    localStorage.setItem("given_name", decodedToken.given_name);
+    localStorage.setItem("exp", decodedToken.exp);
+    localStorage.setItem("token", resJson.token);
     return resJson;
   }
 
@@ -59,12 +49,9 @@ export class authService {
 
     const decodedToken: IDecodedToken = this.decodeToken(resJson.token);
 
-    this.user = {
-      name: decodedToken.name,
-      token: resJson.token
-    }
-
-    localStorage.setItem("authToken", resJson.token);
+    localStorage.setItem("given_name", decodedToken.given_name);
+    localStorage.setItem("exp", decodedToken.exp);
+    localStorage.setItem("token", resJson.token);
     return resJson;
   }
 

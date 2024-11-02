@@ -1,0 +1,18 @@
+<main class="flex-column-center">
+    <table>
+        <thead>
+            <td>Mes<hr></td>
+            <td>Alquileres<hr></td>
+            <td>Monto total<hr></td>
+        </thead>
+        <tbody>
+            @for (report of reportsService.reports; track $index) {
+                <tr [ngClass]="{ 'bg': swapBg() }">
+                    <td class="month row"> {{ getMonth(report.month) }} </td>
+                    <td class="row">{{ report.parkingCount }}</td>
+                    <td class="row">${{ report.totalValue }}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</main>

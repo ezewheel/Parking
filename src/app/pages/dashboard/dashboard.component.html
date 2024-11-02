@@ -1,22 +1,24 @@
 <main class="flex-column-center">
     <table>
         <thead>
-            <td>ID</td>
-            <td>Disponibilidad</td>
-            <td>Ingreso</td>
-            <td>Acciones</td>
+            <td>ID<hr></td>
+            <td>Disponibilidad<hr></td>
+            <td>Descripción<hr></td>
+            <td>Acciones<hr></td>
         </thead>
         <tbody>
             @for (slot of parkingService.slots; track $index) {
                 <tr>
                     <td class="row"> {{ slot.id }} </td>
-                    <td class="row">
+                    <td class="availability row">
                         @if (slot.isAvailable) {
                             <button class="available" (click)="addParking(slot.id)">
                                 Disponible
                             </button>
+                        } @else if (slot.parking?.plate) {
+                            <button class="occupied" (click)="closeParking(slot)">{{ slot.parking?.plate }}</button>
                         } @else {
-                            <button class="unavailable" (click)="closeParking(slot)">
+                            <button class="unavailable">
                                 No disponible
                             </button>
                         }
@@ -37,5 +39,5 @@
         </tbody>
     </table>
 
-    <button (click)="addSlot()">Agregar cochera</button>
+    <button id="add-slot-button" (click)="addSlot()">Agregar cochera</button>
 </main>

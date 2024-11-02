@@ -1,0 +1,16 @@
+<header>
+    <table>
+        <thead>
+            <td class="logo"><h1>Parking</h1></td>
+            <td class="welcome"><p>Bienvenido, {{getUser()}}</p></td>
+            <td>
+                <nav>
+                    <a [routerLink]="['/dashboard']" routerLinkActive="active" >Estado cocheras</a>
+                    <a [routerLink]="['/reports']" routerLinkActive="active" >Reportes</a>
+                    <a [routerLink]="['/fees']" routerLinkActive="active" >Precios</a>
+                </nav>
+            </td>
+        </thead>
+    </table>
+</header>
+<router-outlet/>
