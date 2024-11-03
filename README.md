@@ -23,3 +23,4 @@ El backend está en https://github.com/ezewheel/Parking
 <h2>Notas: </h2>
 <p>- El token dura 5 minutos, al expirar se retorna a /login, puede modificarse desde el servicio de autenticación del backend</p>
 <p>- El backend tiene configurado abrirse en el puerto 5155</p>
+<p>- Hay un usuario precargado con credenciales admin, admin</p>
