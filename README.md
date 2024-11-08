@@ -1,5 +1,5 @@
 <h2>Backend: </h2>
-El backend está en https://github.com/ezewheel/Parking
+El backend está en https://github.com/ezewheel/ParkingAPI
 
 <h3>api/auth:</h3>
 <p>POST /login : recibe Username y Password y retorna {status = "ok", msg = "Login successful", token}</p>
